@@ -77,7 +77,7 @@ CREATE TABLE `usuarios` (
   `correo` varchar(80) NOT NULL,
   `telefono` varchar(20) DEFAULT NULL,
   `direccion` varchar(100) DEFAULT NULL,
-  `perfil` varchar(50) NOT NULL DEFAULT 'avatar.svg',
+  `perfil` varchar(500) NOT NULL DEFAULT 'https://res.cloudinary.com/drwtssrej/image/upload/v1763577013/AlquilerAutos%28MovilXpress%29/default-user_zvjlu5.png',
   `clave` varchar(100) NOT NULL,
   `fecha` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   `estado` int(11) NOT NULL DEFAULT 1,
@@ -253,7 +253,7 @@ VALUES
 
 
 INSERT INTO usuarios (
-  usuario, nombre, apellido, correo, telefono, direccion, perfil, clave, estado, fecha, rol
+  usuario, nombre, apellido, correo, telefono, direccion, clave, estado, fecha, rol
 ) VALUES (
   'admin',
   'Administrador',
@@ -261,10 +261,8 @@ INSERT INTO usuarios (
   'admin@correo.com',
   '999999999',
   'Av. Principal 123',
-  'avatar.svg',
   '$2a$12$UXW2hk4pCL9LlyAUTBsaf.R3EF.NjIL8/X9YN4fld22WjMV15tnrS',
   1,
   CURRENT_TIMESTAMP(),
   'ADMIN'
 );
-
