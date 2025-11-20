@@ -1,6 +1,6 @@
 # MoviXpress – Vehicle Rental System
 
-![image](https://github.com/ClaudioCh-Dev/movi-xpress/blob/393c208949953fceab7a68870569453f18e8520f/src/main/resources/static/images/movixpress-web.webp)
+![image](https://github.com/ClaudioCh-Dev/movi-xpress/blob/55b4f34ff40aa145a4ac1e947ea93d8bdd879e06/src/main/resources/static/images/movixpress-web.webp)
 
 ---
 
@@ -145,3 +145,4 @@ $2a$12$UXW2hk4pCL9LlyAUTBsaf.R3EF.NjIL8/X9YN4fld22WjMV15tnrS
 ```
 
 ---
+
