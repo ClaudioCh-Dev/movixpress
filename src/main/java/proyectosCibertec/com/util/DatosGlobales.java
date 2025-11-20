@@ -38,7 +38,7 @@ public class DatosGlobales {
             model.addAttribute("nombreUsuario", nombre);
             model.addAttribute("rolUsuario", rol);
 
-            // Extrae la URI actual para marcar el menú activo
+            // Extraer URI actual para marcar el menú activo
             String uri = request.getRequestURI();
             model.addAttribute("currentUri", uri);
         }

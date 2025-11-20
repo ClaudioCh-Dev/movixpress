@@ -20,11 +20,11 @@ public class TiposController {
 
     @GetMapping("/listado")
     public String tipos_crud(Model model) {
-        List<Tipos> listaTipos = repoTipo.findByEstado(1); // Solo activos
+        List<Tipos> listaTipos = repoTipo.findByEstado(1);
         model.addAttribute("lstTipos", listaTipos);
         model.addAttribute("tipos", new Tipos());
 
-        // Para el listado de activos
+        // Para listado de activos
         model.addAttribute("vista", "activos");
 
         return "private-pages/tipos";
