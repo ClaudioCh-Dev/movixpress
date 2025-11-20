@@ -16,8 +16,6 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import proyectosCibertec.com.model.Vehiculos;
@@ -39,7 +37,7 @@ public class PublicPagesController {
 
 	@Autowired
 	private IMarcasRepository repoMarca;
-	
+
 	@GetMapping("/login")
 	public String loginPage() {
 		return "public-pages/login";
@@ -47,18 +45,18 @@ public class PublicPagesController {
 
 	@GetMapping("/contactos")
 	public String contactosVista(Model model) {
-	    Optional<Configuracion> optConfig = repoConfig.findById(1);
-	    
-	    if (optConfig.isPresent()) {
-	        model.addAttribute("configuracion", optConfig.get());
-	    } else {
-	        model.addAttribute("configuracion", new Configuracion()); 
-	        model.addAttribute("mensaje", "No se encontró configuración.");
-	    }
+		Optional<Configuracion> optConfig = repoConfig.findById(1);
 
-	    return "public-pages/contactos";
+		if (optConfig.isPresent()) {
+			model.addAttribute("configuracion", optConfig.get());
+		} else {
+			model.addAttribute("configuracion", new Configuracion());
+			model.addAttribute("mensaje", "No se encontró configuración.");
+		}
+
+		return "public-pages/contactos";
 	}
-	
+
 	@GetMapping("/catalogo")
 	public String catalogoVista(@RequestParam(name = "nombre", required = false) String nombre,
 			@RequestParam(name = "precioMin", required = false) Double precioMin,

@@ -1,157 +1,147 @@
-# 🚗 Alquiler de Vehículos
+# MoviXpress – Vehicle Rental System
 
-![image](https://github.com/user-attachments/assets/ae24bc37-1c52-4561-a751-f036832107e8)
-
----
-
-## 📘 Descripción del Proyecto
-
-Este proyecto consiste en un sistema de alquiler de autos desarrollado con **Spring Boot**. Su objetivo principal es permitir a trabajadores y administradores gestionar de manera eficiente:
-
-- El registro de clientes.  
-- El registro y administración de vehículos disponibles para alquilar.  
-- La creación y seguimiento de alquileres, incluyendo fechas, pagos, penalidades y observaciones.
-
-### 🧰 Tecnologías Utilizadas
-
-- Spring Boot + Spring Security + JPA + Lombok  
-- MySQL (base de datos relacional)  
-- Cloudinary (almacenamiento de imágenes de vehículos)  
-- Bootstrap (interfaz gráfica)
+![image](https://github.com/ClaudioCh-Dev/movi-xpress/blob/393c208949953fceab7a68870569453f18e8520f/src/main/resources/static/images/movixpress-web.webp)
 
 ---
 
-## ⚙️ Configuración del Entorno de Desarrollo
+# Vehicle Rental System
 
-Este repositorio incluye un archivo de ejemplo de configuración para la aplicación Spring Boot.
+This repository contains a complete vehicle rental management system built with Spring Boot.  
+The application allows administrators and workers to efficiently handle client records, vehicle inventory, rental operations, and business configuration settings.
 
-### 📄 Archivo: `env.example`
+---
 
-Ubicación:
+## Project Overview
 
-```
-.env.example
-```
+The system is designed to streamline the workflow of small and medium vehicle rental businesses.  
+It provides features for registering clients, managing vehicles, creating rental orders, assigning documents, tracking payments, and applying penalties when required.
 
-Contiene la estructura necesaria para conectar con la base de datos y Cloudinary.
+---
 
-### 🚀 Pasos para Configurar
+## Features
 
-1. Copia el archivo `.env.example` y renómbralo como:
+- Client registration and management
+- Vehicle inventory with image storage using Cloudinary
+- Rental creation, management, and tracking
+- Automatic penalty calculation
+- User authentication and authorization (ADMIN, WORKER)
+- Document type configuration (invoice, receipt, etc.)
+- Company configuration and settings module
+- Secure login using Spring Security
+
+---
+
+## Technologies Used
+
+- Spring Boot (Security, JPA, Validation)
+- MySQL
+- Cloudinary
+- Bootstrap
+- Lombok
+
+---
+
+## Installation and Execution (Using Docker Compose)
+
+To run the application and the database in an isolated and pre-configured way, use Docker Compose
+
+1. **Clone the repository:**
+   ```bash
+   git clone https://github.com/ClaudioCh-Dev/movixpress.git
+   cd movixpress
    ```
-   .env
+2. Configure Environment Variables:  
+   The project requires Cloudinary credentials. See the Environment Configuration section for the .env file details
+3. Build and Run with Docker Compose:  
+   This command builds the Spring Boot application image and spins up the movixpress-app and movixpress-db containers
+   ```bash
+   docker-compose up --build
    ```
-
-2. Asegúrate de completar con tus datos reales:
-
-   ```properties
-   SPRING_DATASOURCE_URL=jdbc:mysql://localhost:3306/alquiler_db?useSSL=false&serverTimezone=UTC
-   SPRING_DATASOURCE_USERNAME=tu_usuario
-   SPRING_DATASOURCE_PASSWORD=tu_clave
-
-   CLOUDINARY_CLOUD_NAME=tu_nombre
-   CLOUDINARY_API_KEY=tu_api_key
-   CLOUDINARY_API_SECRET=tu_api_secret
-   ```
-
-3. Este archivo está incluido en `.gitignore`. **No lo subas al repositorio**.
+   The application will be available at `http://localhost:8080`
 
 ---
 
-## 📁 Descripción de Propiedades
+## Environment Configuration
 
-| Propiedad                    | Descripción                              |
-|-----------------------------|------------------------------------------|
-| `SPRING_DATASOURCE_URL`     | Conexión JDBC a la base de datos MySQL   |
-| `SPRING_DATASOURCE_USERNAME`| Usuario de base de datos                 |
-| `SPRING_DATASOURCE_PASSWORD`| Contraseña del usuario                   |
-| `CLOUDINARY_CLOUD_NAME`     | Nombre de cuenta en Cloudinary           |
-| `CLOUDINARY_API_KEY`        | API Key para acceso                      |
-| `CLOUDINARY_API_SECRET`     | API Secret (**no lo compartas**)         |
+The project includes an example environment file used to configure database access and Cloudinary credentials.
+
+File: `.env.example`
+
+Copy the file and rename it to:
+
+```bash
+.env
+```
+
+Fill your Cloudinary credentials:
+
+```properties
+CLOUDINARY_CLOUD_NAME=your_cloud_name
+CLOUDINARY_API_KEY=your_api_key
+CLOUDINARY_API_SECRET=your_api_secret
+```
+
+The `.env` file is ignored by Git and must not be committed.
 
 ---
 
-## 🧱 Estructura de la Base de Datos
+## Database Initialization
 
-### 📌 Configuración Inicial
+The MySQL database is automatically initialized when launching Docker Compose.
 
-🗂️ La creación de la base de datos se encuentra en un archivo bd_alquiler_auto.sql ubicado en una carpeta llamada base_de_datos ubicada dentro de la raíz del proyecto. Asegúrate de ejecutar este archivo en tu gestor de base de datos (por ejemplo, MySQL que es el preferente ya que el proyecto se uso aquel gestor) antes de iniciar la aplicación.
+- **Database Name:** movixpress
+- **SQL Scripts:** The structure and initial data are located in the new directory:
 
-```sql
-CREATE DATABASE IF NOT EXISTS alquiler_db;
-USE alquiler_db;
+```bash
+/database/
+    └── 01-schema.sql (Table Structure)
+    └── 02-data.sql   (Initial Data)
+```
 
-SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-START TRANSACTION;
-SET time_zone = "+00:00";
-/*!40101 SET NAMES utf8mb4 */;
+### Main Tables
+
+- moneda
+- documentos
+- marcas
+- tipos
+- clientes
+- usuarios
+- configuracion
+- vehiculos
+- alquiler
+
+---
+
+## Test Administrator User
+
+```text
+Username: admin
+Password: contra123
+```
+
+Encrypted password:
+
+```text
+$2a$12$UXW2hk4pCL9LlyAUTBsaf.R3EF.NjIL8/X9YN4fld22WjMV15tnrS
 ```
 
 ---
 
-### 🗂️ Tablas Principales
+## Project Structure
 
-#### 🪙 `moneda`  
-Define las monedas utilizadas para los alquileres.
-
-#### 📄 `documentos`  
-Tipos de comprobantes disponibles (boleta, factura, etc.).
-
-#### 🚘 `marcas`  
-Marcas de los vehículos en el sistema.
-
-#### 🏷️ `tipos`  
-Tipos de vehículos (sedán, SUV, pickup, etc.).
-
-#### 👤 `clientes`  
-Información detallada de los clientes que alquilan.
-
-#### 🔐 `usuarios`  
-Usuarios con acceso al sistema. Tienen roles `ADMIN` o `WORKER`.
-
-#### ⚙️ `configuracion`  
-Datos generales de la empresa: RUC, nombre, penalidad, etc.
-
-#### 🚙 `vehiculos`  
-Lista de autos disponibles con sus datos y estado.
-
-#### 📋 `alquiler`  
-Registros de cada operación de alquiler realizada.
-
----
-
-## 🧪 Usuario de Prueba
-
-El sistema incluye un usuario administrador de ejemplo:
-
-- 👤 **Usuario**: `admin`  
-- 🔑 **Contraseña**: `contra123` (encriptada con Bcrypt)
-
-```sql
-INSERT INTO usuarios (
-  usuario, nombre, apellido, correo, telefono, direccion, perfil, clave, estado, fecha, rol
-) VALUES (
-  'admin',
-  'Administrador',
-  'Del Sistema',
-  'admin@correo.com',
-  '999999999',
-  'Av. Principal 123',
-  'avatar.svg',
-  '$2a$12$UXW2hk4pCL9LlyAUTBsaf.R3EF.NjIL8/X9YN4fld22WjMV15tnrS',
-  1,
-  CURRENT_TIMESTAMP(),
-  'ADMIN'
-);
+```text
+.
+├── src/
+│   └── main/
+│       ├── java/
+│       └── resources/
+│           ├── templates/
+│           └── application.properties
+├── database/
+│   ├── 01-schema.sql
+│   └── 02-data.sql
+├── Dockerfile
+└── docker-compose.yml
 ```
-
----
-
-## 📝 Notas Finales
-
-- Asegúrate de ejecutar los scripts en orden correcto por las claves foráneas.
-- Se utiliza `ON DELETE CASCADE` para mantener integridad referencial.
-- Varias tablas incluyen campos de auditoría como `fecha` y `estado`.
-- El sistema es ideal para integrarse con backend Spring Boot o REST API.
 
 ---
