@@ -19,7 +19,7 @@ public class CloudinaryService {
         try {
             @SuppressWarnings("unchecked")
 			Map<String, Object> uploadOptions = ObjectUtils.asMap(
-                "folder", folder // Especificamos la carpeta
+                "folder", folder
             );
             
             Map<?, ?> result = cloudinary.uploader().upload(file.getBytes(), uploadOptions);

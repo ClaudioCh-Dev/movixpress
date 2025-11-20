@@ -21,11 +21,6 @@ import proyectosCibertec.com.repository.IConfiguracionRepository;
 import proyectosCibertec.com.repository.IDocumentosRepository;
 import proyectosCibertec.com.repository.IMarcasRepository;
 import proyectosCibertec.com.repository.IVehiculosRepository;
-import proyectosCibertec.com.security.UsuarioDetailsSession;
-
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
-import proyectosCibertec.com.model.Usuario;
 
 import java.io.OutputStream;
 import java.util.HashMap;
@@ -38,7 +33,6 @@ import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 
 import org.springframework.core.io.ResourceLoader;
-import org.springframework.beans.factory.annotation.Autowired;
 
 
 @Controller

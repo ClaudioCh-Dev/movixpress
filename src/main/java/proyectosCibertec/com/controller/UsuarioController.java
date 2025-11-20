@@ -38,11 +38,9 @@ public class UsuarioController {
 	private IUsuarioRepository repoUsu;
 	
 	@Autowired
-	private DataSource dataSource; // javax.sql
-
+	private DataSource dataSource;
 	@Autowired
-	private ResourceLoader resourceLoader; // core.io
-
+	private ResourceLoader resourceLoader;
 	@GetMapping("/listado")
 	public String usuarioCrud(Model model, @RequestParam(defaultValue = "0") int page,
 			@RequestParam(defaultValue = "5") int size) {
@@ -95,7 +93,6 @@ public class UsuarioController {
 			// Encriptar contraseña
 			usuario.setClave(passwordEncoder.encode(usuario.getClave()));
 
-			// Guardar usuario
 			repoUsu.save(usuario);
 
 			redirAtributos.addFlashAttribute("mensaje", "Usuario registrado exitosamente");
