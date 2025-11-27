@@ -107,7 +107,7 @@ CREATE TABLE `configuracion` (
   `correo` varchar(100) NOT NULL,
   `direccion` varchar(255) NOT NULL,
   `mensaje` text NOT NULL,
-  `logo` varchar(10) NOT NULL,
+  `logo` varchar(255) NOT NULL,
   `moneda` int(11) NOT NULL,
   `impuesto` int(11) NOT NULL,
   `cant_factura` int(11) NOT NULL,
