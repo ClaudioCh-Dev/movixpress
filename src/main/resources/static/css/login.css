@@ -1,0 +1,149 @@
+/* ======================================
+        Estilos globales de login
+   Fondo, Card, Inputs, Labels, Botón
+====================================== */
+
+/* ------- Estilos generales (Fondo) ------- */
+.login-body {
+  font-family: "Segoe UI", sans-serif;
+  background: url("/images/fondo-vehiculo.jpg") center/cover no-repeat fixed;
+  margin: 0;
+  overflow-x: hidden;
+}
+
+.bg-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.65);
+  backdrop-filter: blur(5px);
+  z-index: 0;
+}
+
+/* ------- Card Main ------- */
+.card-login {
+  width: 900px;
+  max-width: 95%;
+  border-radius: 20px;
+  background: rgba(30, 32, 36, 0.75);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  animation: fadeInUp 0.7s ease;
+  overflow: hidden;
+}
+
+/* Panel izquierdo */
+.left-panel {
+  background: rgba(0, 0, 0, 0.35);
+}
+
+/* Panel derecho */
+.right-panel {
+  background: url("/images/fondo-vehiculo.jpg") center/cover no-repeat;
+  position: relative;
+}
+
+.bg-gradient-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    135deg,
+    rgba(220, 53, 69, 0.9),
+    rgba(0, 0, 0, 0.85)
+  );
+}
+
+/* ------- Inputs flotantes ------- */
+.form-floating > .form-control {
+  background: rgba(255, 255, 255, 0.07) !important;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 12px;
+  height: 55px;
+  color: #fff !important;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  transition: all 0.25s ease;
+}
+
+/* Hover */
+.form-floating > .form-control:hover {
+  background: rgba(255, 255, 255, 0.12) !important;
+}
+
+.form-floating > .form-control:focus {
+  background: rgba(255, 255, 255, 0.15) !important;
+  border-color: #ff4d6d !important;
+  box-shadow: 0 0 0 0.35rem rgba(255, 77, 109, 0.35);
+}
+
+/* Placeholder */
+.form-floating > .form-control::placeholder {
+  color: transparent !important;
+}
+
+/* -------- Label flotante -------- */
+.form-floating > label {
+  background: transparent !important;
+  color: rgba(255, 255, 255, 0.65);
+  padding-left: 0.9rem;
+  transition: 0.25s ease;
+}
+
+.form-floating > .form-control:focus ~ label,
+.form-floating > .form-control:not(:placeholder-shown) ~ label {
+  transform: translateY(-9px) scale(0.9);
+  color: #ff5166 !important;
+  opacity: 0.9;
+}
+
+.form-control:-webkit-autofill {
+  -webkit-box-shadow: 0 0 0 30px rgba(255, 255, 255, 0.1) inset !important;
+  -webkit-text-fill-color: #fff !important;
+  border-radius: 12px;
+}
+
+/* ------- Boton ------- */
+.btn-login {
+  background: linear-gradient(90deg, #ff335a, #ff6a4d);
+  border: none;
+  color: #fff;
+  height: 52px;
+  border-radius: 14px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  transition: 0.25s ease;
+  font-size: 1rem;
+}
+
+.btn-login:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 14px rgba(255, 80, 95, 0.35);
+}
+
+.btn-login:active {
+  transform: scale(0.97);
+}
+
+/* Icons Panel derecho */
+.feature-icon {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 50%;
+  padding: 12px;
+  transition: 0.3s ease;
+}
+
+.feature-icon:hover {
+  transform: scale(1.08);
+  background: rgba(255, 255, 255, 0.2);
+}
+
+/* Animacion */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(35px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
