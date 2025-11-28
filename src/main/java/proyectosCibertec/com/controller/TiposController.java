@@ -85,7 +85,7 @@ public class TiposController {
         model.addAttribute("lstTipos", listaCancelados);
         model.addAttribute("tipos", new Tipos());
         model.addAttribute("vista", "cancelados");
-        return "tipos";
+        return "private-pages/tipos";
     }
 
     @GetMapping("/restaurar/{id}")
