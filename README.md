@@ -1,133 +1,161 @@
 # MoviXpress – Vehicle Rental System
 
-![image](https://github.com/ClaudioCh-Dev/movi-xpress/blob/89f67c6d6ad150e32a43d98b3b509d9ec63b99fb/src/main/resources/static/images/movixpress-web.webp)
+
+![image](src/main/resources/static/images/movixpress-web.webp)
 
 ---
 
-# Vehicle Rental System
+## Overview
 
-This repository contains a complete vehicle rental management system built with Spring Boot.  
-The application allows administrators and workers to efficiently handle client records, vehicle inventory, rental operations, and business configuration settings.
+MoviXpress is a complete vehicle rental management platform built with **Spring Boot**.  
+It provides a modern public website and a full administration panel for managing vehicles, clients, rentals, and company configuration.
 
----
+Designed for small and medium-sized rental businesses, it includes:
 
-## Project Overview
-
-The system is designed to streamline the workflow of small and medium vehicle rental businesses.  
-It provides features for registering clients, managing vehicles, creating rental orders, assigning documents, tracking payments, and applying penalties when required.
+- Vehicle inventory control
+- Client management
+- Rental creation and monitoring
+- Automatic penalty calculations
+- Cloud image storage with Cloudinary
+- Configurable business data
+- Secure authentication with user roles (ADMIN, WORKER)
 
 ---
 
 ## Features
 
-- Client registration and management
-- Vehicle inventory with image storage using Cloudinary
-- Rental creation, management, and tracking
+### User Management
+
+- Login system secured with Spring Security
+- Roles: **ADMIN** and **WORKER**
+
+### Vehicle Management
+
+- Register and edit vehicles
+- Upload images using Cloudinary
+- Manage brands, types, capacities, fuel types, transmissions, and mileage ranges
+
+### Client Management
+
+- Register and track clients
+- Access rental history
+
+### Document Management
+
+- Configurable document types (invoice, receipt, etc.)
+
+### Rental Management
+
+- Create rental orders
 - Automatic penalty calculation
-- User authentication and authorization (ADMIN, WORKER)
-- Document type configuration (invoice, receipt, etc.)
-- Company configuration and settings module
-- Secure login using Spring Security
+- Price handling based on vehicle configuration
+
+### Business Configuration
+
+- Company information
+- Contact details
+- Branding and general settings
+
+### Public Website
+
+- Home
+- Vehicle catalog
+- About us
+- Contact form with business info and map
 
 ---
 
 ## Technologies Used
 
-- Spring Boot (Security, JPA, Validation)
-- MySQL
-- Cloudinary
-- Bootstrap
-- Lombok
+- **Java 17**
+- **Spring Boot** (Security, Web, JPA, Validation)
+- **MySQL**
+- **Hibernate**
+- **Cloudinary**
+- **Thymeleaf**
+- **Bootstrap 5**
+- **Docker & Docker Compose**
+- **Lombok**
 
 ---
 
-## Installation and Execution (Using Docker Compose)
+## Running with Docker Compose
 
-To run the application and the database in an isolated and pre-configured way, use Docker Compose
+This project includes a fully reproducible development environment using Docker.
 
-1. **Clone the repository:**
-   ```bash
-   git clone https://github.com/ClaudioCh-Dev/movixpress.git
-   cd movixpress
-   ```
-2. Configure Environment Variables:  
-   The project requires Cloudinary credentials. See the Environment Configuration section for the .env file details
-3. Build and Run with Docker Compose:  
-   This command builds the Spring Boot application image and spins up the movixpress-app and movixpress-db containers
-   ```bash
-   docker-compose up --build
-   ```
-   The application will be available at `http://localhost:8080`
-
----
-
-## Environment Configuration
-
-The project includes an example environment file used to configure database access and Cloudinary credentials.
-
-File: `.env.example`
-
-Copy the file and rename it to:
+### Clone the repository
 
 ```bash
-.env
+git clone https://github.com/ClaudioCh-Dev/movixpress
+cd movixpress
 ```
 
-Fill in your Cloudinary and database settings:
+### Configure the `.env` file
+
+Copy the example file:
+
+```bash
+cp .env.example .env
+```
+
+Then edit the Cloudinary and database values:
 
 ```properties
-SPRING_DATASOURCE_URL=jdbc:mysql://YOUR_DB_HOST:YOUR_DB_PORT/YOUR_DB_NAME?createDatabaseIfNotExist=true
-SPRING_DATASOURCE_USERNAME=YOUR_DB_USERNAME
-SPRING_DATASOURCE_PASSWORD=YOUR_DB_PASSWORD
+SPRING_DATASOURCE_URL=jdbc:mysql://movixpress-db:3306/movixpress?createDatabaseIfNotExist=true
+SPRING_DATASOURCE_USERNAME=root
+SPRING_DATASOURCE_PASSWORD=yourpassword
 
 CLOUDINARY_CLOUD_NAME=your_cloud_name
 CLOUDINARY_API_KEY=your_api_key
 CLOUDINARY_API_SECRET=your_api_secret
 ```
 
-The `.env` file is ignored by Git and must not be committed.
+⚠️ **The `.env` file is ignored by Git and must not be committed.**
+
+### Build and start the system
+
+```bash
+docker-compose up --build
+```
+
+The application will be available at:
+
+```
+http://localhost:8080
+```
 
 ---
 
 ## Database Initialization
 
-The MySQL database is automatically initialized when launching Docker Compose.
+When Docker starts, MySQL is automatically populated using the SQL scripts:
 
-- **Database Name:** movixpress
-- **SQL Scripts:** The structure and initial data are located in the new directory:
-
-```bash
+```
 /database/
-    └── 01-schema.sql (Table Structure)
-    └── 02-data.sql   (Initial Data)
+├── 01-schema.sql   → Table structure
+└── 02-data.sql     → Initial data
 ```
 
-### Main Tables
+### Key Tables
 
-- moneda
-- documentos
-- marcas
-- tipos
 - clientes
 - usuarios
-- configuracion
 - vehiculos
 - alquiler
+- configuracion
+- marcas, tipos, capacidades, combustible, transmisión, kilometraje
+- documentos
 
 ---
 
-## Test Administrator User
+## Default Admin User
 
 ```text
 Username: admin
 Password: contra123
 ```
 
-Encrypted password:
-
-```text
-$2a$12$UXW2hk4pCL9LlyAUTBsaf.R3EF.NjIL8/X9YN4fld22WjMV15tnrS
-```
+Password is hashed using BCrypt.
 
 ---
 
@@ -135,20 +163,39 @@ $2a$12$UXW2hk4pCL9LlyAUTBsaf.R3EF.NjIL8/X9YN4fld22WjMV15tnrS
 
 ```text
 .
-├── src/
-│   └── main/
-│       ├── java/
-│       └── resources/
-│           ├── templates/
-│           └── application.properties
 ├── database/
 │   ├── 01-schema.sql
 │   └── 02-data.sql
+├── docker-compose.yml
 ├── Dockerfile
-└── docker-compose.yml
+└── src/
+    └── main/
+        ├── java/proyectosCibertec/com/
+        └── resources/
+            ├── static/
+            ├── templates/
+            └── application.properties
 ```
 
 ---
 
+## Development Notes
 
+- CSS consolidated into:
 
+  - `static/css/global.css`
+  - `static/css/client.css`
+  - `static/css/admin.css`
+
+- Scripts reorganized:
+
+  - `static/js/global/`
+  - `static/js/admin/`
+
+- Removed unused legacy files:
+  - `styleCatalog.css`
+  - `styleContacts.css`
+  - `styleLogin.css`
+  - others…
+
+---
