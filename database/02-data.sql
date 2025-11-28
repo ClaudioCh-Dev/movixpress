@@ -71,18 +71,44 @@ INSERT INTO clientes (dni, nombre, telefono, direccion) VALUES
 INSERT INTO configuracion (ruc, nombre, telefono, correo, direccion, mensaje, logo, moneda, impuesto, cant_factura, penalidad_por_dia)
 VALUES ('20604816123', 'MoviXpress S.A.C.', '928012312', 'movixpress@rental.net', 'Av. Uruguay 514, Breña', '¡Gracias por su preferencia!', '/companyLogo/logo.png', 1, 18, 1000, 10.00);
 
+-- Combustibles
+INSERT INTO combustibles (nombre) VALUES
+('Gasolina'),
+('Diésel'),
+('Eléctrico'),
+('Híbrido');
+
+-- Transmisiones
+INSERT INTO transmisiones (nombre) VALUES
+('Manual'),
+('Automático');
+
+-- Capacidades
+INSERT INTO capacidades (cantidad) VALUES
+(2),
+(4),
+(5),
+(7),
+(12);
+
+-- Kilometrajes
+INSERT INTO kilometrajes (tipo) VALUES
+('Ilimitado'),
+('100 km/día'),
+('200 km/día');
+
 -- Vehículos
-INSERT INTO vehiculos (placa, id_marca, id_tipo, modelo, foto, precio_por_dia) VALUES
-('AAA111', 1, 1, 'Corolla', 'https://res-console.cloudinary.com/drrlway38/thumbnails/v1/image/upload/v1751315161/dmlzdGEtZGVsLWNvY2hlLTNkX2MydHo3aQ==/preview', 100),
-('BBB222', 2, 2, 'Tucson', 'https://res-console.cloudinary.com/drrlway38/thumbnails/v1/image/upload/v1751315161/dmlzdGEtZGVsLWNvY2hlLTNkX2MydHo3aQ==/preview', 120),
-('CCC333', 3, 3, 'Silverado', 'https://res-console.cloudinary.com/drrlway38/thumbnails/v1/image/upload/v1751315161/dmlzdGEtZGVsLWNvY2hlLTNkX2MydHo3aQ==/preview', 150),
-('DDD444', 4, 4, 'March', 'https://res-console.cloudinary.com/drrlway38/thumbnails/v1/image/upload/v1751315161/dmlzdGEtZGVsLWNvY2hlLTNkX2MydHo3aQ==/preview', 90),
-('EEE555', 5, 5, 'Mustang', 'https://res-console.cloudinary.com/drrlway38/thumbnails/v1/image/upload/v1751315161/dmlzdGEtZGVsLWNvY2hlLTNkX2MydHo3aQ==/preview', 200),
-('FFF666', 6, 6, 'Rio', 'https://res-console.cloudinary.com/drrlway38/thumbnails/v1/image/upload/v1751315161/dmlzdGEtZGVsLWNvY2hlLTNkX2MydHo3aQ==/preview', 80),
-('GGG777', 7, 7, 'Golf', 'https://res-console.cloudinary.com/drrlway38/thumbnails/v1/image/upload/v1751315161/dmlzdGEtZGVsLWNvY2hlLTNkX2MydHo3aQ==/preview', 110),
-('HHH888', 8, 8, 'CX-5', 'https://res-console.cloudinary.com/drrlway38/thumbnails/v1/image/upload/v1751315161/dmlzdGEtZGVsLWNvY2hlLTNkX2MydHo3aQ==/preview', 130),
-('III999', 9, 9, 'Civic', 'https://res-console.cloudinary.com/drrlway38/thumbnails/v1/image/upload/v1751315161/dmlzdGEtZGVsLWNvY2hlLTNkX2MydHo3aQ==/preview', 105),
-('JJJ000', 10, 10, 'Swift', 'https://res-console.cloudinary.com/drrlway38/thumbnails/v1/image/upload/v1751315161/dmlzdGEtZGVsLWNvY2hlLTNkX2MydHo3aQ==/preview', 95);
+INSERT INTO vehiculos (placa, id_marca, id_tipo, modelo, foto, precio_por_dia, id_combustible, id_transmision, id_capacidad, id_kilometraje) VALUES
+('AAA111', 1, 1, 'Corolla', 'https://res-console.cloudinary.com/drrlway38/thumbnails/v1/image/upload/v1751315161/dmlzdGEtZGVsLWNvY2hlLTNkX2MydHo3aQ==/preview', 100, 1, 2, 2, 1),
+('BBB222', 2, 2, 'Tucson', 'https://res-console.cloudinary.com/drrlway38/thumbnails/v1/image/upload/v1751315161/dmlzdGEtZGVsLWNvY2hlLTNkX2MydHo3aQ==/preview', 120, 2, 1, 2, 1),
+('CCC333', 3, 3, 'Silverado', 'https://res-console.cloudinary.com/drrlway38/thumbnails/v1/image/upload/v1751315161/dmlzdGEtZGVsLWNvY2hlLTNkX2MydHo3aQ==/preview', 150, 1, 2, 2, 3),
+('DDD444', 4, 4, 'March', 'https://res-console.cloudinary.com/drrlway38/thumbnails/v1/image/upload/v1751315161/dmlzdGEtZGVsLWNvY2hlLTNkX2MydHo3aQ==/preview', 90, 2, 1, 3, 1),
+('EEE555', 5, 5, 'Mustang', 'https://res-console.cloudinary.com/drrlway38/thumbnails/v1/image/upload/v1751315161/dmlzdGEtZGVsLWNvY2hlLTNkX2MydHo3aQ==/preview', 200, 1, 2, 4, 1),
+('FFF666', 6, 6, 'Rio', 'https://res-console.cloudinary.com/drrlway38/thumbnails/v1/image/upload/v1751315161/dmlzdGEtZGVsLWNvY2hlLTNkX2MydHo3aQ==/preview', 80, 3, 2, 2, 1),
+('GGG777', 7, 7, 'Golf', 'https://res-console.cloudinary.com/drrlway38/thumbnails/v1/image/upload/v1751315161/dmlzdGEtZGVsLWNvY2hlLTNkX2MydHo3aQ==/preview', 110, 4, 1, 4, 1),
+('HHH888', 8, 8, 'CX-5', 'https://res-console.cloudinary.com/drrlway38/thumbnails/v1/image/upload/v1751315161/dmlzdGEtZGVsLWNvY2hlLTNkX2MydHo3aQ==/preview', 130, 4, 2, 2, 2),
+('III999', 9, 9, 'Civic', 'https://res-console.cloudinary.com/drrlway38/thumbnails/v1/image/upload/v1751315161/dmlzdGEtZGVsLWNvY2hlLTNkX2MydHo3aQ==/preview', 105, 1, 1, 1, 3),
+('JJJ000', 10, 10, 'Swift', 'https://res-console.cloudinary.com/drrlway38/thumbnails/v1/image/upload/v1751315161/dmlzdGEtZGVsLWNvY2hlLTNkX2MydHo3aQ==/preview', 95, 2, 2, 5, 2);
 
 -- Alquileres
 INSERT INTO alquiler (id_cliente, id_vehiculo, id_moneda, num_dias, precio_dia, abono, fecha_prestamo, hora, fecha_estimada_devolucion, id_doc, observacion, estado, penalidad_por_dia)

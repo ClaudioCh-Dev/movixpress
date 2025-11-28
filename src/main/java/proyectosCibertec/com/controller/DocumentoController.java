@@ -33,10 +33,12 @@ public class DocumentoController {
     }
 
     private String extractPublicId(String url) {
-        if (url == null || url.isEmpty()) return null;
+        if (url == null || url.isEmpty())
+            return null;
         try {
             int uploadIndex = url.indexOf("/upload/");
-            if (uploadIndex == -1) return null;
+            if (uploadIndex == -1)
+                return null;
 
             String pathAfterUpload = url.substring(uploadIndex + "/upload/".length());
             if (pathAfterUpload.matches("^v\\d+/.*")) {
@@ -177,7 +179,7 @@ public class DocumentoController {
         model.addAttribute("lstDocumentos", lista);
         model.addAttribute("documentos", new Documentos());
         model.addAttribute("vista", "cancelados");
-        return "documentos";
+        return "private-pages/documentos";
     }
 
     @GetMapping("/restaurar/{id}")

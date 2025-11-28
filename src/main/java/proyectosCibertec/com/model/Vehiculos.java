@@ -16,7 +16,7 @@ import lombok.Data;
 public class Vehiculos {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;	
+    private int id;
     @Column(name = "id_marca")
     private int idMarca;
     @Column(name = "id_tipo")
@@ -36,4 +36,20 @@ public class Vehiculos {
     @ManyToOne
     @JoinColumn(name = "id_tipo", insertable = false, updatable = false)
     private Tipos objTipo;
+
+    @ManyToOne
+    @JoinColumn(name = "id_combustible")
+    private Combustible combustible;
+
+    @ManyToOne
+    @JoinColumn(name = "id_transmision")
+    private Transmision transmision;
+
+    @ManyToOne
+    @JoinColumn(name = "id_capacidad")
+    private Capacidad capacidad;
+
+    @ManyToOne
+    @JoinColumn(name = "id_kilometraje")
+    private Kilometraje kilometraje;
 }

@@ -117,6 +117,58 @@ CREATE TABLE `configuracion` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- =======================
+-- Tabla: combustibles
+-- =======================
+CREATE TABLE combustibles (
+  id INT(11) NOT NULL AUTO_INCREMENT,
+  nombre VARCHAR(50) NOT NULL,
+  estado INT(11) NOT NULL DEFAULT 1,
+  fecha TIMESTAMP NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  PRIMARY KEY (id)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+CREATE UNIQUE INDEX idx_combustibles_nombre ON combustibles(nombre);
+
+-- =======================
+-- Tabla: transmisiones
+-- =======================
+CREATE TABLE transmisiones (
+  id INT(11) NOT NULL AUTO_INCREMENT,
+  nombre VARCHAR(50) NOT NULL,
+  estado INT(11) NOT NULL DEFAULT 1,
+  fecha TIMESTAMP NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  PRIMARY KEY (id)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+CREATE UNIQUE INDEX idx_transmisiones_nombre ON transmisiones(nombre);
+
+-- =======================
+-- Tabla: capacidades
+-- =======================
+CREATE TABLE capacidades (
+  id INT(11) NOT NULL AUTO_INCREMENT,
+  cantidad INT NOT NULL,
+  estado INT(11) NOT NULL DEFAULT 1,
+  fecha TIMESTAMP NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  PRIMARY KEY (id)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+CREATE UNIQUE INDEX idx_capacidades_cantidad ON capacidades(cantidad);
+
+-- =======================
+-- Tabla: kilometrajes
+-- =======================
+CREATE TABLE kilometrajes (
+  id INT(11) NOT NULL AUTO_INCREMENT,
+  tipo VARCHAR(50) NOT NULL,
+  estado INT(11) NOT NULL DEFAULT 1,
+  fecha TIMESTAMP NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  PRIMARY KEY (id)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+CREATE UNIQUE INDEX idx_kilometrajes_tipo ON kilometrajes(tipo);
+
+-- =======================
 -- Tabla: vehiculos
 -- =======================
 CREATE TABLE `vehiculos` (
@@ -129,15 +181,39 @@ CREATE TABLE `vehiculos` (
   `actividad` ENUM('PRESTADO', 'LIBRE') NOT NULL DEFAULT 'LIBRE',
   `estado` int(11) NOT NULL DEFAULT 1,
   `precio_por_dia` decimal(10,2) DEFAULT 1,
+
+  `id_combustible` int(11),
+  `id_transmision` int(11),
+  `id_capacidad` int(11),
+  `id_kilometraje` int(11),
+
   `fecha` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  
   PRIMARY KEY (`id`),
-  FOREIGN KEY (`id_marca`) REFERENCES `marcas` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  FOREIGN KEY (`id_tipo`) REFERENCES `tipos` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+
+  FOREIGN KEY (`id_marca`) REFERENCES `marcas` (`id`) 
+    ON DELETE CASCADE ON UPDATE CASCADE,
+  FOREIGN KEY (`id_tipo`) REFERENCES `tipos` (`id`) 
+    ON DELETE CASCADE ON UPDATE CASCADE,
+  
+  FOREIGN KEY (`id_combustible`) REFERENCES `combustibles` (`id`) 
+    ON DELETE SET NULL ON UPDATE CASCADE,
+  FOREIGN KEY (`id_transmision`) REFERENCES `transmisiones` (`id`) 
+    ON DELETE SET NULL ON UPDATE CASCADE,
+  FOREIGN KEY (`id_capacidad`) REFERENCES `capacidades` (`id`) 
+    ON DELETE SET NULL ON UPDATE CASCADE,
+  FOREIGN KEY (`id_kilometraje`) REFERENCES `kilometrajes` (`id`) 
+    ON DELETE SET NULL ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 CREATE UNIQUE INDEX idx_vehiculos_placa ON vehiculos(placa);
 CREATE INDEX idx_vehiculos_marca ON vehiculos(id_marca);
 CREATE INDEX idx_vehiculos_tipo ON vehiculos(id_tipo);
+
+CREATE INDEX idx_vehiculos_combustible ON vehiculos(id_combustible);
+CREATE INDEX idx_vehiculos_transmision ON vehiculos(id_transmision);
+CREATE INDEX idx_vehiculos_capacidad ON vehiculos(id_capacidad);
+CREATE INDEX idx_vehiculos_kilometraje ON vehiculos(id_kilometraje);
 
 -- =======================
 -- Tabla: alquiler

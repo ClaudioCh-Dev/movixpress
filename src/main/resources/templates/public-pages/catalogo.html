@@ -1,162 +1,492 @@
 <!DOCTYPE html>
-<html lang="es" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{layouts/client_layout.html}">
+<html
+  lang="es"
+  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  layout:decorate="~{layouts/client_layout.html}"
+>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Catálogo - MoviXpress</title>
 
-<head>
-  <meta charset="UTF-8">
-  <title>Catálogo - MoviXpress</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
-  <link rel="stylesheet" href="/css/styleCatalog.css">
-</head>
+    <!-- Bootstrap -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css"
+      rel="stylesheet"
+    />
 
-<div layout:fragment="content">
-  <div class="container-fluid">
-    <div class="row g-0">
+    <!-- CSS -->
+    <link rel="stylesheet" href="/css/global.css" />
+    <link rel="stylesheet" href="/css/client.css" />
+  </head>
 
-      <!-- Sidebar Fijo -->
-      <div class="col-lg-3 col-xl-2 bg-dark text-white sidebar d-none d-lg-block">
-        <div class="position-sticky top-0 p-4" style="z-index: 100; height: 100vh; overflow-y: auto;">
-          <h5 class="text-light mb-4 d-flex align-items-center">
-            <i class="bi bi-sliders me-2 text-brand"></i>Filtros
-          </h5>
-          <form th:action="@{/catalogo}" method="get" class="vstack gap-4">
+  <div layout:fragment="content" class="catalogo-body">
+    <div class="container-fluid">
+      <div class="row g-0">
+        <!-- Sidebar Fijo -->
+        <div
+          class="col-lg-3 col-xl-2 bg-dark text-white sidebar d-none d-lg-block"
+        >
+          <div
+            class="position-sticky"
+            style="
+              top: 56px;
+              height: calc(100vh - 56px);
+              overflow-y: auto;
+              padding: 20px;
+              z-index: 100;
+            "
+          >
+            <h5 class="text-light mb-4 d-flex align-items-center">
+              <i class="bi bi-sliders me-2 text-brand"></i>Filtros
+            </h5>
+            <form th:action="@{/catalogo}" method="get" class="vstack gap-4">
+              <div class="form-floating">
+                <input
+                  type="text"
+                  name="nombre"
+                  class="form-control rounded-3"
+                  id="nombreInput"
+                  placeholder="Buscar por nombre"
+                  th:value="${param.nombre}"
+                />
+                <label for="nombreInput"
+                  ><i class="bi bi-search me-1"></i> Modelo</label
+                >
+              </div>
 
-            <div class="form-floating">
-              <input type="text" name="nombre" class="form-control rounded-3" id="nombreInput"
-                     placeholder="Buscar por nombre" th:value="${param.nombre}">
-              <label for="nombreInput"><i class="bi bi-search me-1"></i> Modelo</label>
-            </div>
-
-            <div>
-              <label class="form-label text-white-50 small text-uppercase fw-bold ls-1">Rango de Precio</label>
-              <div class="d-flex gap-2">
-                <div class="form-floating w-50">
-                  <input type="number" name="precioMin" class="form-control rounded-3" id="minInput"
-                         placeholder="Mínimo" th:value="${param.precioMin}">
-                  <label for="minInput">Min</label>
-                </div>
-                <div class="form-floating w-50">
-                  <input type="number" name="precioMax" class="form-control rounded-3" id="maxInput"
-                         placeholder="Máximo" th:value="${param.precioMax}">
-                  <label for="maxInput">Max</label>
+              <div>
+                <label
+                  class="form-label text-white-50 small text-uppercase fw-bold ls-1"
+                  >Rango de Precio</label
+                >
+                <div class="d-flex gap-2">
+                  <div class="form-floating w-50">
+                    <input
+                      type="number"
+                      name="precioMin"
+                      class="form-control rounded-3"
+                      id="minInput"
+                      placeholder="Mínimo"
+                      th:value="${param.precioMin}"
+                    />
+                    <label for="minInput">Min</label>
+                  </div>
+                  <div class="form-floating w-50">
+                    <input
+                      type="number"
+                      name="precioMax"
+                      class="form-control rounded-3"
+                      id="maxInput"
+                      placeholder="Máximo"
+                      th:value="${param.precioMax}"
+                    />
+                    <label for="maxInput">Max</label>
+                  </div>
                 </div>
               </div>
-            </div>
 
-            <div>
-              <label class="form-label text-white-50 small text-uppercase fw-bold ls-1">Marca</label>
-              <select name="marcaId" class="form-select rounded-3 py-3">
-                <option value="">Todas las marcas</option>
-                <option th:each="marca : ${marcas}" th:value="${marca.id}" th:text="${marca.marca}"
-                        th:selected="${param.marcaId == marca.id}"></option>
-              </select>
-            </div>
-
-            <button type="submit" class="btn btn-brand w-100 rounded-pill py-2 fw-bold mt-2">
-              Aplicar filtros
-            </button>
-            
-            <a href="/catalogo" class="btn btn-outline-secondary w-100 rounded-pill py-2 btn-sm">
-              Limpiar
-            </a>
-          </form>
-        </div>
-      </div>
-      
-      <!-- Botón flotante para filtros en móvil -->
-      <div class="d-lg-none p-3 bg-dark border-bottom border-secondary sticky-top" style="top: 56px; z-index: 99;">
-        <button class="btn btn-outline-light w-100" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasFilters">
-          <i class="bi bi-funnel-fill me-2"></i> Filtrar Vehículos
-        </button>
-      </div>
-
-      <!-- Offcanvas Filtros Móvil -->
-      <div class="offcanvas offcanvas-start bg-dark text-white" tabindex="-1" id="offcanvasFilters">
-        <div class="offcanvas-header border-bottom border-secondary">
-          <h5 class="offcanvas-title">Filtros</h5>
-          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas"></button>
-        </div>
-        <div class="offcanvas-body">
-           <!-- Mismo formulario que sidebar (simplificado para demo, idealmente usar fragmento) -->
-           <form th:action="@{/catalogo}" method="get" class="vstack gap-4">
-             <!-- ... campos ... -->
-             <div class="form-floating">
-               <input type="text" name="nombre" class="form-control rounded-3" placeholder="Buscar" th:value="${param.nombre}">
-               <label>Modelo</label>
-             </div>
-             <!-- ... resto de campos ... -->
-             <button type="submit" class="btn btn-brand w-100 rounded-pill">Aplicar</button>
-           </form>
-        </div>
-      </div>
-
-      <!-- Contenido derecho -->
-      <div class="col-lg-9 col-xl-10 p-4 p-lg-5 bg-black">
-        <!-- Título -->
-        <div class="d-flex justify-content-between align-items-center mb-5">
-           <h3 class="fw-bold m-0">Catálogo de Vehículos</h3>
-           <span class="text-white-50" th:text="${vehiculos.totalElements + ' vehículos encontrados'}"></span>
-        </div>
-
-        <!-- Tarjetas -->
-        <div class="row row-cols-1 row-cols-md-2 row-cols-xl-3 row-cols-xxl-4 g-4">
-          <div th:each="vehiculo : ${vehiculos}" class="col">
-            <div class="card card-dark h-100 rounded-4 overflow-hidden position-relative">
-              <!-- Badge de precio -->
-              <div class="position-absolute top-0 end-0 m-3 z-1">
-                 <span class="badge bg-danger rounded-pill px-3 py-2 shadow">S/ <span th:text="${vehiculo.precioXDia}"></span> / día</span>
+              <div>
+                <label
+                  class="form-label text-white-50 small text-uppercase fw-bold ls-1"
+                  >Marca</label
+                >
+                <select name="marcaId" class="form-select rounded-3 py-3">
+                  <option value="">Todas las marcas</option>
+                  <option
+                    th:each="marca : ${marcas}"
+                    th:value="${marca.id}"
+                    th:text="${marca.marca}"
+                    th:selected="${param.marcaId == marca.id}"
+                  ></option>
+                </select>
               </div>
-              
-              <div class="overflow-hidden" style="height: 200px;">
-                 <img th:src="${vehiculo.foto}" class="card-img-top w-100 h-100" alt="Imagen vehículo"
-                   style="object-fit: cover; transition: transform 0.5s ease;"
-                   onmouseover="this.style.transform='scale(1.1)'"
-                   onmouseout="this.style.transform='scale(1)'"
-                   onerror="this.onerror=null; this.src='/images/default-car.png';">
+
+              <button
+                type="submit"
+                class="btn btn-brand w-100 rounded-pill py-2 fw-bold mt-2"
+              >
+                Aplicar filtros
+              </button>
+
+              <a
+                href="/catalogo"
+                class="btn btn-outline-secondary w-100 rounded-pill py-2 btn-sm"
+              >
+                Limpiar
+              </a>
+            </form>
+          </div>
+        </div>
+
+        <!-- Botón flotante para filtros en móvil -->
+        <div
+          class="d-lg-none p-3 bg-dark border-bottom border-secondary sticky-top"
+          style="top: 56px; z-index: 99"
+        >
+          <button
+            class="btn btn-outline-light w-100"
+            type="button"
+            data-bs-toggle="offcanvas"
+            data-bs-target="#offcanvasFilters"
+          >
+            <i class="bi bi-funnel-fill me-2"></i> Filtrar Vehículos
+          </button>
+        </div>
+
+        <!-- Móvil -->
+        <div
+          class="offcanvas offcanvas-start bg-dark text-white"
+          tabindex="-1"
+          id="offcanvasFilters"
+        >
+          <div class="offcanvas-header border-bottom border-secondary">
+            <h5 class="offcanvas-title">Filtros</h5>
+            <button
+              type="button"
+              class="btn-close btn-close-white"
+              data-bs-dismiss="offcanvas"
+            ></button>
+          </div>
+          <div class="offcanvas-body">
+            <form th:action="@{/catalogo}" method="get" class="vstack gap-4">
+              <div class="form-floating">
+                <input
+                  type="text"
+                  name="nombre"
+                  class="form-control rounded-3"
+                  placeholder="Buscar"
+                  th:value="${param.nombre}"
+                />
+                <label>Modelo</label>
               </div>
-              
-              <div class="card-body d-flex flex-column p-4">
-                <div class="mb-2">
-                   <span class="badge bg-secondary bg-opacity-25 text-light border border-secondary border-opacity-25 rounded-1" th:text="${vehiculo.objMarca.marca}"></span>
-                </div>
-                <h5 class="card-title fw-bold mb-3 text-white" th:text="${vehiculo.modelo}"></h5>
-                
-                <div class="row g-2 mb-4 text-white-50 small">
-                   <div class="col-6"><i class="bi bi-fuel-pump me-1 text-brand"></i> Gasolina</div>
-                   <div class="col-6"><i class="bi bi-gear me-1 text-brand"></i> Automático</div>
-                   <div class="col-6"><i class="bi bi-people me-1 text-brand"></i> 5 Pasajeros</div>
-                   <div class="col-6"><i class="bi bi-speedometer2 me-1 text-brand"></i> Ilimitado</div>
-                </div>
-                
-                <div class="mt-auto">
-                   <a href="#" class="btn btn-outline-light w-100 rounded-pill hover-bg-brand">Ver Detalles</a>
+              <button type="submit" class="btn btn-brand w-100 rounded-pill">
+                Aplicar
+              </button>
+            </form>
+          </div>
+        </div>
+
+        <!-- Contenido derecho (Cards Vehiculos) -->
+        <div class="col-lg-9 col-xl-10 catalogo-content">
+          <!-- Título -->
+          <div
+            class="d-flex justify-content-between align-items-center mb-5 px-3 px-lg-4"
+          >
+            <h3 class="fw-bold m-0">Catálogo de Vehículos</h3>
+            <span
+              class="text-white-50"
+              th:text="${vehiculos.totalElements + ' vehículos encontrados'}"
+            ></span>
+          </div>
+
+          <!-- Tarjetas -->
+          <div class="cards-wrapper">
+            <div
+              class="row row-cols-1 row-cols-md-2 row-cols-xl-3 row-cols-xxl-4 g-4"
+            >
+              <div th:each="vehiculo : ${vehiculos}" class="col">
+                <div
+                  class="card card-dark h-100 rounded-4 overflow-hidden position-relative"
+                >
+                  <!-- Badge de precio -->
+                  <div class="position-absolute top-0 end-0 m-3 z-1">
+                    <span class="badge badge-precio shadow"
+                      >S/<span th:text="${vehiculo.precioXDia}"></span> /
+                      día</span
+                    >
+                  </div>
+
+                  <div class="overflow-hidden" style="height: 200px">
+                    <img
+                      th:src="${vehiculo.foto}"
+                      class="card-img-top w-100 h-100"
+                      alt="Imagen vehículo"
+                      style="object-fit: cover; transition: transform 0.5s ease"
+                      onmouseover="this.style.transform='scale(1.1)'"
+                      onmouseout="this.style.transform='scale(1)'"
+                      onerror="this.onerror=null; this.src='/images/default-car.png'; return false;"
+                    />
+                  </div>
+
+                  <div class="card-body d-flex flex-column p-4">
+                    <div class="mb-2">
+                      <span
+                        class="badge bg-secondary bg-opacity-25 text-light border border-secondary border-opacity-25 rounded-1"
+                        th:text="${vehiculo.objMarca.marca}"
+                      ></span>
+                    </div>
+                    <h5
+                      class="card-title fw-bold mb-3 text-white"
+                      th:text="${vehiculo.modelo}"
+                    ></h5>
+
+                    <div class="row g-2 mb-4 text-white-50 small">
+                      <div class="col-6">
+                        <i class="bi bi-fuel-pump me-1 text-brand"></i>
+                        <span
+                          th:text="${vehiculo.combustible != null ? vehiculo.combustible.nombre : 'No registrado'}"
+                        ></span>
+                      </div>
+
+                      <div class="col-6">
+                        <i class="bi bi-gear me-1 text-brand"></i>
+                        <span
+                          th:text="${vehiculo.transmision != null ? vehiculo.transmision.nombre : 'No registrado'}"
+                        ></span>
+                      </div>
+
+                      <div class="col-6">
+                        <i class="bi bi-people me-1 text-brand"></i>
+                        <span
+                          th:text="${vehiculo.capacidad != null ? vehiculo.capacidad.cantidad + ' Pasajeros' : 'No registrado'}"
+                        ></span>
+                      </div>
+
+                      <div class="col-6">
+                        <i class="bi bi-speedometer2 me-1 text-brand"></i>
+                        <span
+                          th:text="${vehiculo.kilometraje != null ? vehiculo.kilometraje.tipo : 'No registrado'}"
+                        ></span>
+                      </div>
+                    </div>
+
+                    <div class="mt-auto">
+                      <button
+                        type="button"
+                        class="btn btn-outline-light w-100 rounded-pill hover-bg-brand"
+                        data-bs-toggle="modal"
+                        data-bs-target="#modalDetalles"
+                        th:attr="data-marca=${vehiculo.objMarca.marca},
+                               data-modelo=${vehiculo.modelo},
+                               data-precio=${vehiculo.precioXDia},
+                               data-foto=${vehiculo.foto},
+                              
+                               data-combustible=${vehiculo.combustible != null ? vehiculo.combustible.nombre : 'No registrado'},
+                               data-transmision=${vehiculo.transmision != null ? vehiculo.transmision.nombre : 'No registrado'},
+                               data-capacidad=${vehiculo.capacidad != null ? vehiculo.capacidad.cantidad + ' Pasajeros' : 'No registrado'},
+                               data-km=${vehiculo.kilometraje != null ? vehiculo.kilometraje.tipo : 'No registrado'}"
+                      >
+                        Ver Detalles
+                      </button>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
-        </div>
 
-        <!-- Paginación -->
-        <div class="mt-5 d-flex justify-content-center">
-          <nav th:if="${vehiculos.totalPages > 1}">
-            <ul class="pagination pagination-lg">
-              <li class="page-item" th:classappend="${vehiculos.first} ? 'disabled'">
-                <a class="page-link" th:href="@{/catalogo(page=${vehiculos.number - 1}, ...)}"><i class="bi bi-chevron-left"></i></a>
-              </li>
-              <li class="page-item" th:each="i : ${#numbers.sequence(0, vehiculos.totalPages - 1)}"
-                  th:classappend="${i == vehiculos.number} ? 'active'">
-                <a class="page-link" th:href="@{/catalogo(page=${i}, ...)}" th:text="${i + 1}"></a>
-              </li>
-              <li class="page-item" th:classappend="${vehiculos.last} ? 'disabled'">
-                <a class="page-link" th:href="@{/catalogo(page=${vehiculos.number + 1}, ...)}"><i class="bi bi-chevron-right"></i></a>
-              </li>
-            </ul>
-          </nav>
+          <!-- Paginación -->
+          <div class="mt-5 d-flex justify-content-center">
+            <nav th:if="${vehiculos.totalPages > 1}">
+              <ul class="pagination pagination-lg">
+                <li
+                  class="page-item"
+                  th:classappend="${vehiculos.first} ? 'disabled'"
+                >
+                  <a
+                    class="page-link"
+                    th:href="@{/catalogo(page=${vehiculos.number - 1}, ...)}"
+                    ><i class="bi bi-chevron-left"></i
+                  ></a>
+                </li>
+                <li
+                  class="page-item"
+                  th:each="i : ${#numbers.sequence(0, vehiculos.totalPages - 1)}"
+                  th:classappend="${i == vehiculos.number} ? 'active'"
+                >
+                  <a
+                    class="page-link"
+                    th:href="@{/catalogo(page=${i}, ...)}"
+                    th:text="${i + 1}"
+                  ></a>
+                </li>
+                <li
+                  class="page-item"
+                  th:classappend="${vehiculos.last} ? 'disabled'"
+                >
+                  <a
+                    class="page-link"
+                    th:href="@{/catalogo(page=${vehiculos.number + 1}, ...)}"
+                    ><i class="bi bi-chevron-right"></i
+                  ></a>
+                </li>
+              </ul>
+            </nav>
+          </div>
         </div>
       </div>
-
     </div>
+
+    <!-- Modal Detalles Vehiculo -->
+    <div
+      class="modal fade"
+      id="modalDetalles"
+      tabindex="-1"
+      aria-labelledby="modalDetallesLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content bg-dark text-white border-secondary">
+          <div class="modal-header border-secondary">
+            <h5 class="modal-title fw-bold" id="modalDetallesLabel">
+              <i class="bi bi-car-front-fill me-2 text-danger"></i>Detalles del
+              Vehículo
+            </h5>
+            <button
+              type="button"
+              class="btn-close btn-close-white"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body p-0">
+            <div class="row g-0">
+              <!-- Imagen del vehículo -->
+              <div class="col-md-6">
+                <img
+                  id="modalImagen"
+                  src=""
+                  class="w-100 h-100"
+                  style="object-fit: cover; min-height: 300px"
+                  alt="Vehículo"
+                  onerror="this.onerror=null; this.src='/images/default-car.png';"
+                />
+              </div>
+
+              <!-- Información -->
+              <div class="col-md-6 p-4">
+                <div class="mb-3">
+                  <span
+                    class="badge bg-secondary bg-opacity-25 text-light border border-secondary border-opacity-25 rounded-1"
+                    id="modalMarca"
+                  ></span>
+                </div>
+
+                <h3 class="fw-bold mb-3" id="modalModelo"></h3>
+
+                <div class="mb-4">
+                  <span class="precio-detalle"
+                    >S/<span id="modalPrecio"></span> / día</span
+                  >
+                </div>
+
+                <h6
+                  class="text-white-50 text-uppercase small fw-bold mb-3 ls-1"
+                >
+                  Características
+                </h6>
+
+                <div class="row g-3 mb-4">
+                  <div class="col-6">
+                    <div class="d-flex align-items-center">
+                      <i class="bi bi-fuel-pump fs-5 me-2 text-danger"></i>
+                      <div>
+                        <small class="text-white-50 d-block">Combustible</small>
+                        <span id="modalCombustible"></span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col-6">
+                    <div class="d-flex align-items-center">
+                      <i class="bi bi-gear-fill fs-5 me-2 text-danger"></i>
+                      <div>
+                        <small class="text-white-50 d-block">Transmisión</small>
+                        <span id="modalTransmision"></span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col-6">
+                    <div class="d-flex align-items-center">
+                      <i class="bi bi-people-fill fs-5 me-2 text-danger"></i>
+                      <div>
+                        <small class="text-white-50 d-block">Capacidad</small>
+                        <span id="modalCapacidad"></span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col-6">
+                    <div class="d-flex align-items-center">
+                      <i class="bi bi-speedometer2 fs-5 me-2 text-danger"></i>
+                      <div>
+                        <small class="text-white-50 d-block">Kilometraje</small>
+                        <span id="modalKilometraje"></span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <hr class="border-secondary my-4" />
+
+                <h6
+                  class="text-white-50 text-uppercase small fw-bold mb-3 ls-1"
+                >
+                  Información Adicional
+                </h6>
+                <ul class="list-unstyled small text-white-50 mb-0">
+                  <li class="mb-2">
+                    <i class="bi bi-check-circle-fill text-success me-2"></i>
+                    Seguro incluido
+                  </li>
+                  <li class="mb-2">
+                    <i class="bi bi-check-circle-fill text-success me-2"></i>
+                    Mantenimiento al día
+                  </li>
+                  <li class="mb-2">
+                    <i class="bi bi-check-circle-fill text-success me-2"></i>
+                    Asistencia 24/7
+                  </li>
+                  <li>
+                    <i class="bi bi-check-circle-fill text-success me-2"></i>
+                    GPS incluido
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer border-secondary">
+            <button
+              type="button"
+              class="btn btn-secondary rounded-pill px-4"
+              data-bs-dismiss="modal"
+            >
+              Cerrar
+            </button>
+            <!-- En caso se pueda reservar/solicitar mediante un boton
+          <button type="button" class="btn btn-danger rounded-pill px-4">
+            <i class="bi bi-calendar-check me-2"></i>Reservar Ahora
+          </button> -->
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      // Cargar datos en el modal cuando se abre
+      const modalDetalles = document.getElementById("modalDetalles");
+
+      modalDetalles.addEventListener("show.bs.modal", function (event) {
+        const button = event.relatedTarget;
+
+        modalImagen.src = button.getAttribute("data-foto");
+        modalImagen.onerror = function () {
+          this.src = "/images/default-car.png";
+        };
+
+        modalMarca.textContent = button.getAttribute("data-marca");
+        modalModelo.textContent = button.getAttribute("data-modelo");
+        modalPrecio.textContent = button.getAttribute("data-precio");
+        modalCombustible.textContent = button.getAttribute("data-combustible");
+        modalTransmision.textContent = button.getAttribute("data-transmision");
+        modalCapacidad.textContent = button.getAttribute("data-capacidad");
+        modalKilometraje.textContent = button.getAttribute("data-km");
+      });
+    </script>
   </div>
-</div>
 </html>

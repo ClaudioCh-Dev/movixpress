@@ -1,0 +1,289 @@
+/* ===================================
+      Estilos globales del cliente
+   (Catálogo, About Us, Navbar público)
+===================================== */
+
+/* ---------- Layout general ---------- */
+.client-body,
+.catalogo-body {
+  background-color: #0d0d0d;
+  color: white;
+  min-height: 100vh;
+}
+
+.catalogo-body > .container-fluid {
+  padding: 0 !important;
+  overflow-x: hidden;
+}
+
+/* ---------- Navbar ---------- */
+.navbar-client {
+  background: rgba(0, 0, 0, 0.65);
+  backdrop-filter: blur(6px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Navbar con fondo oscuro */
+.navbar-blur {
+  background: rgba(43, 43, 43, 0.75) !important;
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+/* ---------- Sidebar Catalog ---------- */
+.sidebar {
+  min-height: 100vh;
+  background: #111 !important;
+}
+
+.sidebar h5 {
+  margin-top: 15px;
+  color: #fff;
+}
+
+/* ---------- Cards Catalogo ---------- */
+.card-dark {
+  background: #1a1a1a;
+  border: none;
+  transition: transform 0.25s ease;
+}
+
+.card-dark:hover {
+  transform: translateY(-4px);
+}
+
+.catalogo-content {
+  padding-top: 75px;
+}
+
+.quienessomos-content {
+  padding-top: 100px;
+}
+
+.contactos-content {
+  padding-top: 55px;
+}
+
+/* ---------- Cards del Equipo (Quienes Somos) ---------- */
+.card-team {
+  background: #1a1a1a !important;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  color: white;
+}
+
+/* Badge Precio */
+.badge-precio {
+  background: linear-gradient(45deg, #ff416c, #ff4b2b);
+  padding: 0.45rem 0.75rem;
+  border-radius: 10px;
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+/* Hover Imagen */
+.card-dark img:hover {
+  transform: scale(1.1);
+}
+
+/* Espaciado entre Cards */
+.catalogo-body .row.g-0 > div.col-lg-9 .row {
+  padding: 0 15px;
+}
+
+/* ---------- Botones ---------- */
+.btn-brand {
+  background: linear-gradient(45deg, #ff4d6d, #ff335a);
+  border: none;
+  color: white !important;
+  font-weight: 600;
+}
+
+.btn-brand:hover {
+  opacity: 0.9;
+}
+
+/* ---------- Modal Detalles Vehiculo ---------- */
+#modalDetalles .modal-content {
+  background: #111 !important;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+#modalDetalles img {
+  object-fit: cover;
+}
+
+/* corregir fondo gris en columnas */
+#modalDetalles .col-md-6:first-child {
+  background: #000;
+}
+
+/* ---------- Seccion Sobre Nosotros ---------- */
+.about-container {
+  padding: 60px 20px;
+}
+
+.about-title {
+  font-size: 2.6rem;
+  font-weight: 700;
+  color: #ff5166;
+}
+
+.about-text {
+  color: #d1d5db;
+  font-size: 1.1rem;
+}
+
+.about-img {
+  max-width: 100%;
+  border-radius: 12px;
+  box-shadow: 0 6px 20px rgba(255, 80, 95, 0.25);
+}
+
+/* ---------- Página Contactos ---------- */
+.contact-title {
+  font-size: 2.8rem;
+  font-weight: 700;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.contact-info {
+  font-size: 1.1rem;
+  color: #d1d5db;
+}
+
+.contact-info i {
+  color: #ff4d6d;
+  margin-right: 8px;
+}
+
+.contact-map iframe {
+  width: 100%;
+  border-radius: 12px;
+  box-shadow: 0 6px 20px rgba(255, 80, 95, 0.25);
+}
+
+/* Tarjeta principal */
+.contact-card {
+  background-color: #1a1a1a;
+  color: #f1f1f1;
+  border-radius: 1.5rem;
+  border: 1px solid #333;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+}
+
+/* Items de información */
+.info-item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 1.5rem;
+  padding: 1rem;
+  background-color: #222;
+  border-radius: 1rem;
+  transition: transform 0.2s, background 0.2s;
+}
+
+.info-item:hover {
+  transform: translateX(5px);
+  background-color: #2a2a2a;
+}
+
+/* Iconos */
+.info-icon {
+  font-size: 1.5rem;
+  color: #ff5166;
+  width: 3rem;
+  height: 3rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(255, 80, 95, 0.12);
+  border-radius: 50%;
+  margin-right: 1rem;
+}
+
+/* Títulos dentro de la tarjeta */
+.contact-card h2,
+.contact-card h4 {
+  color: #fff;
+}
+
+/* Correos */
+.contact-card a {
+  color: #ff5166;
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.contact-card a:hover {
+  color: #ff6b6b;
+}
+
+/* Mapa */
+.map-container iframe {
+  border-radius: 1rem;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+/* ---------- Footer Cliente Global ---------- */
+.footer {
+  background: #1a1a1a;
+  color: #d1d5db;
+  padding: 50px 20px;
+}
+
+.footer h5 {
+  color: white;
+  font-weight: 600;
+  margin-bottom: 15px;
+}
+
+.footer a {
+  color: #9ca3af;
+  text-decoration: none;
+}
+
+.footer a:hover {
+  color: #ff5166;
+}
+
+.footer .social-icons i {
+  font-size: 1.3rem;
+  margin-right: 12px;
+  color: #e5e7eb;
+}
+
+.footer .social-icons i:hover {
+  color: #ff4d6d;
+}
+
+/* ---------- Layout Contactos ---------- */
+.contact-page {
+  padding: 60px 20px;
+}
+
+/* Cards de info en Contactos */
+.contact-box {
+  background: #111;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  padding: 25px;
+  border-radius: 12px;
+}
+
+/* ---------- Responsive ---------- */
+@media (max-width: 992px) {
+  .sidebar {
+    display: none !important;
+  }
+
+  .catalogo-body .container-fluid {
+    padding: 0 !important;
+  }
+}
+
+@media (max-width: 768px) {
+  .about-title {
+    font-size: 2rem;
+  }
+}
