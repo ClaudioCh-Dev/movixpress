@@ -187,15 +187,9 @@ Password is hashed using BCrypt.
   - `static/css/client.css`
   - `static/css/admin.css`
 
-- Scripts reorganized:
+- Scripts organized:
 
   - `static/js/global/`
   - `static/js/admin/`
-
-- Removed unused legacy files:
-  - `styleCatalog.css`
-  - `styleContacts.css`
-  - `styleLogin.css`
-  - others…
-
+ 
 ---
