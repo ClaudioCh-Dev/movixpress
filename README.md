@@ -18,7 +18,7 @@ Designed for small and medium-sized rental businesses, it includes:
 - Automatic penalty calculations
 - Cloud image storage with Cloudinary
 - Configurable business data
-- Secure authentication with user roles (ADMIN, WORKER)
+- Secure authentication with user roles (admin, worker)
 
 ---
 
@@ -132,8 +132,8 @@ When Docker starts, MySQL is automatically populated using the SQL scripts:
 
 ```
 /database/
-├── 01-schema.sql   → Table structure
-└── 02-data.sql     → Initial data
+├── 01-schema.sql
+└── 02-data.sql
 ```
 
 ### Key Tables
@@ -143,7 +143,7 @@ When Docker starts, MySQL is automatically populated using the SQL scripts:
 - vehiculos
 - alquiler
 - configuracion
-- marcas, tipos, capacidades, combustible, transmisión, kilometraje
+- marcas, tipos, capacidades, combustible, transmision, kilometraje
 - documentos
 
 ---
@@ -193,3 +193,4 @@ Password is hashed using BCrypt.
   - `static/js/admin/`
  
 ---
+
